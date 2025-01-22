@@ -1,26 +1,13 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 4.0.0"
-    }
-  }
-
-  required_version = ">= 1.0.0"
-}
 
 provider "aws" {
   region = var.region
 }
 
-data "aws_subnet_ids" "selected_subnet" {
-  vpc_id = var.vpc_id
-}
+
 resource "aws_instance" "vm_instance" {
   ami           = var.ami_id
   instance_type = var.instance_type
 
-  subnet_id = data.aws_subnet_ids.selected_subnet.ids[0]
 
   tags = {
     Name = var.instance_name
