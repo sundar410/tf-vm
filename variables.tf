@@ -22,3 +22,8 @@ variable "instance_name" {
   description = "Name tag for the VM instance"
   type        = string
 }
+
+variable "vpc_id" {
+  description = "The ID of the VPC where resources will be deployed"
+  type        = string
+}
