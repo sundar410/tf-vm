@@ -22,8 +22,3 @@ variable "instance_name" {
   description = "Name tag for the VM instance"
   type        = string
 }
-
-variable "region" {
-  description = "AWS region for the VM"
-  type        = string
-}
