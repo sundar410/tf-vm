@@ -2,9 +2,14 @@ provider "aws" {
   region = var.region
 }
 
+data "aws_subnet_ids" "selected_subnet" {
+  vpc_id = var.vpc_id
+}
 resource "aws_instance" "vm_instance" {
   ami           = var.ami_id
   instance_type = var.instance_type
+
+  subnet_id = data.aws_subnet_ids.selected_subnet.ids[0]
 
   tags = {
     Name = var.instance_name
@@ -20,6 +25,7 @@ resource "aws_instance" "vm_instance" {
 resource "aws_security_group" "vm_sg" {
   name        = "${var.instance_name}-sg"
   description = "Security group for ${var.instance_name}"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 22
